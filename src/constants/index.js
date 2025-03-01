@@ -14,15 +14,13 @@ import {
   mongodb,
   git,
   figma,
-  docker,
-  meta,
-  starbucks,
-  tesla,
-  shopify,
   carrent,
   jobit,
   tripguide,
   threejs,
+  futurism,
+  praeclarum,
+  saffire,
 } from "../assets";
 
 export const navLinks = [
@@ -108,63 +106,46 @@ const technologies = [
     name: "figma",
     icon: figma,
   },
-  {
-    name: "docker",
-    icon: docker,
-  },
 ];
 
 const experiences = [
   {
-    title: "React.js Developer",
-    company_name: "Starbucks",
-    icon: starbucks,
+    title: "Jr. React Developer",
+    company_name: "Saffire Softtech, Pune",
+    icon: saffire,
     iconBg: "#383E56",
-    date: "March 2020 - April 2021",
+    date: "Jan 2021 - Mar 2022",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
+      "Designed and implemented a responsive UI based on requirements and mock-ups.",
+      "Integrated APIs for seamless front-end and back-end communication.",
+      "Debugged and resolved issues to ensure application stability.",
+      "Collaborated with HR and product teams to improve UI and functionality based on feedback.",
     ],
   },
   {
-    title: "React Native Developer",
-    company_name: "Tesla",
-    icon: tesla,
+    title: "Software Developer",
+    company_name: "Futurism Technologies, Pune",
+    icon: futurism,
     iconBg: "#E6DEDD",
-    date: "Jan 2021 - Feb 2022",
+    date: "Apr 2022 - Sep 2023",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
+      "Built and maintained responsive components for image uploads, CRUD operations, role-based auth, and community forums using React.",
+      "Optimized app performance for high-demand features like image handling and CRUD operations.",
+      "Developed reusable, dynamic form components based on JSON schema with state management using Redux.",
+      "Created real-time event management features, including ticketing and notifications for seamless user experience.",
     ],
   },
   {
-    title: "Web Developer",
-    company_name: "Shopify",
-    icon: shopify,
+    title: "Software Engineer",
+    company_name: "Praeclarum Tech, Ahmedabad",
+    icon: praeclarum,
     iconBg: "#383E56",
-    date: "Jan 2022 - Jan 2023",
+    date: "Oct 2023 - Jan 2025",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-    ],
-  },
-  {
-    title: "Full stack Developer",
-    company_name: "Meta",
-    icon: meta,
-    iconBg: "#E6DEDD",
-    date: "Jan 2023 - Present",
-    points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
+      "Designed scalable system architectures and made key technical decisions.",
+      "Developed full-stack features using React, Nest, and MongoDB.",
+      "Reviewed code to ensure quality, maintainability, and best practices.",
+      "Mentored junior developers and collaborated with cross-functional teams.",
     ],
   },
 ];
@@ -172,27 +153,28 @@ const experiences = [
 const testimonials = [
   {
     testimonial:
-      "I thought it was impossible to make a website as beautiful as our product, but Rick proved me wrong.",
-    name: "Sara Lee",
-    designation: "CFO",
-    company: "Acme Co",
-    image: "https://randomuser.me/api/portraits/women/4.jpg",
+      "Their passion for clean, scalable code and modern UI/UX trends has greatly influenced our team's development practice.",
+    name: "Datta Chechar",
+    designation: "React Developer",
+    company: "Saffire Sofftech",
+    image: "https://randomuser.me/api/portraits/men/4.jpg",
+  },
+
+  {
+    testimonial:
+      "George is a brilliant problem solver and a supportive teammate, always ready to help with React and front-end challenges.",
+    name: "Deepak Pathak",
+    designation: "Sr.React Js Developer ",
+    company: "Futurism",
+    image: "https://randomuser.me/api/portraits/men/10.jpg",
   },
   {
     testimonial:
-      "I've never met a web developer who truly cares about their clients' success like Rick does.",
-    name: "Chris Brown",
-    designation: "COO",
-    company: "DEF Corp",
-    image: "https://randomuser.me/api/portraits/men/5.jpg",
-  },
-  {
-    testimonial:
-      "After Rick optimized our website, our traffic increased by 50%. We can't thank them enough!",
-    name: "Lisa Wang",
-    designation: "CTO",
-    company: "456 Enterprises",
-    image: "https://randomuser.me/api/portraits/women/6.jpg",
+      "Their ability to break down complex requirements and deliver seamless user experiences is truly commendable.",
+    name: "Murari Kumar",
+    designation: "Sr.Software Engineer",
+    company: "Praeclarum Tech",
+    image: "https://randomuser.me/api/portraits/men/7.jpg",
   },
 ];
 
