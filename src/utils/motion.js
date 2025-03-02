@@ -86,3 +86,7 @@ export const staggerContainer = (staggerChildren, delayChildren) => {
     },
   };
 };
+
+export const isValidEmail = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};

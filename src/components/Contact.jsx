@@ -4,34 +4,52 @@ import emailjs from "@emailjs/browser";
 import { styles } from "../styles";
 import EarthCanvas from "./canvas/Earth";
 import SectionWrapper from "../hoc/SectionWrapper";
-import { slideIn } from "../utils/motion";
+import { isValidEmail, slideIn } from "../utils/motion";
+
+const initialForm = {
+  name: "",
+  email: "",
+  message: "",
+};
 
 const Contact = () => {
   const formRef = useRef();
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [form, setForm] = useState(initialForm);
+
+  const validateForm = () => {
+    let newErrors = {};
+    if (!form.name.trim()) newErrors.name = "Name is required!";
+    if (!form.email.trim()) newErrors.email = "Email is required!";
+    else if (!isValidEmail(form.email))
+      newErrors.email = "Invalid email format!";
+    if (!form.message.trim()) newErrors.message = "Message cannot be empty!";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e) => {
-    const { target } = e;
-    const { name, value } = target;
+    const { name, value } = e.target;
 
     setForm({
       ...form,
       [name]: value,
     });
+    setErrors({
+      ...errors,
+      [name]: "",
+    });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
     setLoading(true);
 
-    emailjs
-      .send(
+    try {
+      await emailjs.send(
         import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
         {
@@ -42,25 +60,15 @@ const Contact = () => {
           message: form.message,
         },
         import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
-      )
-      .then(
-        () => {
-          setLoading(false);
-          alert("Thank you. I will get back to you as soon as possible.");
-
-          setForm({
-            name: "",
-            email: "",
-            message: "",
-          });
-        },
-        (error) => {
-          setLoading(false);
-          console.error(error);
-
-          alert("Ahh, something went wrong. Please try again.");
-        }
       );
+      alert(`🎉 Thank you, ${form.name}! I will get back to you soon.`);
+      setForm(initialForm);
+    } catch (error) {
+      alert("Ahh, something went wrong. Please try again.");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -89,6 +97,9 @@ const Contact = () => {
               placeholder="What's your good name?"
               className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
             />
+            {errors.name && (
+              <span className="text-red-500 text-xs mt-1">{errors.name}</span>
+            )}
           </label>
           <label className="flex flex-col">
             <span className="text-white font-medium mb-4">Your email</span>
@@ -100,6 +111,9 @@ const Contact = () => {
               placeholder="What's your web address?"
               className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
             />
+            {errors.email && (
+              <span className="text-red-500 text-xs mt-1">{errors.email}</span>
+            )}
           </label>
           <label className="flex flex-col">
             <span className="text-white font-medium mb-4">Your Message</span>
@@ -111,6 +125,11 @@ const Contact = () => {
               placeholder="What you want to say?"
               className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
             />
+            {errors.message && (
+              <span className="text-red-500 text-xs mt-1">
+                {errors.message}
+              </span>
+            )}
           </label>
 
           <button
