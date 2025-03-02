@@ -57,7 +57,14 @@ const Navbar = () => {
               } hover:text-white text-[18px] font-medium cursor-pointer`}
               onClick={() => setActive(nav.title)}
             >
-              <a href={`#${nav.id}`}>{nav.title}</a>
+              <a
+                href={`${
+                  nav.id === "resume" ? "/George_Resume25.pdf" : `#${nav.id}`
+                }`}
+                download={nav.id === "resume" ? "George_Resume.pdf" : undefined}
+              >
+                {nav.title}
+              </a>
             </li>
           ))}
         </ul>
@@ -69,7 +76,6 @@ const Navbar = () => {
             className="w-[28px] h-[28px] object-contain"
             onClick={() => setToggle(!toggle)}
           />
-
           <div
             className={`${
               !toggle ? "hidden" : "flex"
@@ -87,7 +93,18 @@ const Navbar = () => {
                     setActive(nav.title);
                   }}
                 >
-                  <a href={`#${nav.id}`}>{nav.title}</a>
+                  <a
+                    href={`${
+                      nav.id === "resume"
+                        ? "/George_Resume25.pdf"
+                        : `#${nav.id}`
+                    }`}
+                    download={
+                      nav.id === "resume" ? "George_Resume.pdf" : undefined
+                    }
+                  >
+                    {nav.title}
+                  </a>
                 </li>
               ))}
             </ul>
