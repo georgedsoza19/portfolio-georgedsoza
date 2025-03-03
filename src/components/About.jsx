@@ -23,7 +23,7 @@ const ServiceCard = ({ index, title, icon }) => (
         <img
           src={icon}
           alt="web-development"
-          className="w-16 h-16 object-contain"
+          className="w-16 h-16 object-contain rounded-md"
         />
 
         <h3 className="text-white text-[20px] font-bold text-center">
@@ -46,11 +46,12 @@ const About = () => {
         variants={fadeIn("", "", 0.1, 1)}
         className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
       >
-        I'm a skilled Software Engineer with experience in TypeScript and
-        JavaScript, and expertise in frameworks like React, Node.js, and
-        Three.js. I'm a quick learner and collaborate closely with clients to
-        create efficient, scalable, and user-friendly solutions that solve
-        real-world problems. Let's work together to bring your ideas to life!
+        I am a Software Engineer with 4 years of experience in developing
+        scalable web applications using the MERN stack. Skilled in React.js,
+        TypeScript, Node.js, and MongoDB, I specialize in building, optimizing,
+        and maintaining projects from scratch, collaborating in Agile teams, and
+        mentoring junior developers to deliver efficient solutions. Let's work
+        together to bring your ideas to life!
       </motion.p>
 
       <div className="mt-20 flex flex-wrap gap-10">
