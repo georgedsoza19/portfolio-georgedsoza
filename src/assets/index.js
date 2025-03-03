@@ -1,8 +1,8 @@
 import logo from "./logo.png";
-import backend from "./backend.png";
-import creator from "./creator.png";
-import mobile from "./mobile.png";
-import web from "./web.png";
+import frontend from "./frontend.webp";
+import backend from "./backend.webp";
+import blogger from "./blogger.webp";
+import mentorship from "./mentorship.webp";
 import github from "./github.png";
 import menu from "./menu.svg";
 import close from "./close.svg";
@@ -24,16 +24,15 @@ import saffire from "./company/saffire_softtech.png";
 import praeclarum from "./company/praeclarum_tech.png";
 import futurism from "./company/futurism.png";
 
-import carrent from "./carrent.png";
-import jobit from "./jobit.png";
-import tripguide from "./tripguide.png";
+import portfolio from "./3d-portfolio.png";
+import finti from "./finti.png";
 
 export {
   logo,
+  frontend,
   backend,
-  creator,
-  mobile,
-  web,
+  blogger,
+  mentorship,
   github,
   menu,
   close,
@@ -52,7 +51,6 @@ export {
   saffire,
   praeclarum,
   futurism,
-  carrent,
-  jobit,
-  tripguide,
+  portfolio,
+  finti,
 };
