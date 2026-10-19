@@ -1,6 +1,11 @@
 import { site } from "@/content/site";
 import { Container } from "@/components/ui/container";
-import { GitHubIcon, LinkedInIcon, MailIcon } from "@/components/ui/icons";
+import {
+  ChatBubbleIcon,
+  GitHubIcon,
+  LinkedInIcon,
+  MailIcon,
+} from "@/components/ui/icons";
 import { Logo } from "@/components/ui/logo";
 
 function footerSocialIcon(label: string) {
@@ -47,8 +52,9 @@ export function SiteFooter() {
           </a>
           <a
             href="#contact"
-            className="focus-ring text-muted transition hover:text-accent"
+            className="focus-ring inline-flex items-center gap-1.5 text-muted transition hover:text-accent"
           >
+            <ChatBubbleIcon size={16} />
             Contact
           </a>
         </div>

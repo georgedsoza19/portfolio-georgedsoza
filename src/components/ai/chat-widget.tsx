@@ -167,7 +167,7 @@ export function ChatWidget() {
                 className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-accent-ink transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
                 aria-label="Send message"
               >
-                <SendIcon className="translate-x-px" />
+                <SendIcon size={20} className="translate-x-px" />
               </button>
             </form>
           </motion.div>
@@ -176,12 +176,12 @@ export function ChatWidget() {
 
       <button
         type="button"
-        className="focus-ring flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-ink shadow-[var(--shadow)] transition hover:brightness-110"
+        className="focus-ring flex h-14 w-14 items-center justify-center rounded-full bg-accent p-0 text-accent-ink shadow-[var(--shadow)] transition hover:brightness-110"
         aria-expanded={open}
         aria-label={open ? "Close chat" : "Open chat about my work"}
         onClick={() => setOpen((value) => !value)}
       >
-        {open ? <CloseIcon size={22} /> : <ChatBubbleIcon size={22} />}
+        {open ? <CloseIcon size={28} /> : <ChatBubbleIcon size={28} />}
       </button>
     </div>
   );
