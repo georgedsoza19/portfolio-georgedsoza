@@ -1,17 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
+function subscribe() {
+  return () => {};
+}
+
+function useIsClient() {
+  return useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
+}
+
 export function ThemeToggle({ className }: { className?: string }) {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  const isClient = useIsClient();
   const isDark = resolvedTheme === "dark";
 
   return (
@@ -23,20 +30,12 @@ export function ThemeToggle({ className }: { className?: string }) {
       )}
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={
-        mounted
+        isClient
           ? `Switch to ${isDark ? "light" : "dark"} mode`
           : "Toggle color theme"
       }
     >
-      {mounted ? (
-        isDark ? (
-          <SunIcon />
-        ) : (
-          <MoonIcon />
-        )
-      ) : (
-        <span className="h-4 w-4" />
-      )}
+      {isClient ? isDark ? <SunIcon /> : <MoonIcon /> : <span className="h-4 w-4" />}
     </button>
   );
 }
