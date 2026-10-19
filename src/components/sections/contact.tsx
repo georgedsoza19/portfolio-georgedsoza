@@ -4,6 +4,14 @@ import { useState, useTransition } from "react";
 import { site } from "@/content/site";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import {
+  GitHubIcon,
+  LinkedInIcon,
+  MailIcon,
+  PhoneIcon,
+  SendIcon,
+  SparklesIcon,
+} from "@/components/ui/icons";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { cn } from "@/lib/utils";
@@ -15,6 +23,13 @@ type FormState = {
 };
 
 const initialForm: FormState = { name: "", email: "", message: "" };
+
+function socialIcon(label: string) {
+  const key = label.toLowerCase();
+  if (key.includes("linkedin")) return <LinkedInIcon />;
+  if (key.includes("github")) return <GitHubIcon />;
+  return null;
+}
 
 export function Contact() {
   const [form, setForm] = useState<FormState>(initialForm);
@@ -135,32 +150,41 @@ export function Contact() {
               title="Let’s work together"
               description="Prefer email, LinkedIn, or a quick call? Use the form or reach out directly — the AI assist only polishes your draft; it never sends for you."
             />
-            <ul className="mt-8 space-y-3 text-sm">
+            <ul className="mt-8 space-y-3">
               <li>
                 <a
                   href={`mailto:${site.email}`}
-                  className="focus-ring text-muted hover:text-accent"
+                  className="focus-ring group flex items-center gap-3 rounded-xl text-sm text-muted transition hover:text-accent"
                 >
-                  {site.email}
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-accent transition group-hover:border-accent">
+                    <MailIcon />
+                  </span>
+                  <span>{site.email}</span>
                 </a>
               </li>
               <li>
                 <a
                   href={`tel:${site.phone.replace(/\s/g, "")}`}
-                  className="focus-ring text-muted hover:text-accent"
+                  className="focus-ring group flex items-center gap-3 rounded-xl text-sm text-muted transition hover:text-accent"
                 >
-                  {site.phone}
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-accent transition group-hover:border-accent">
+                    <PhoneIcon />
+                  </span>
+                  <span>{site.phone}</span>
                 </a>
               </li>
               {site.social.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="focus-ring text-muted hover:text-accent"
+                    className="focus-ring group flex items-center gap-3 rounded-xl text-sm text-muted transition hover:text-accent"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {link.label}
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-accent transition group-hover:border-accent">
+                      {socialIcon(link.label)}
+                    </span>
+                    <span>{link.label}</span>
                   </a>
                 </li>
               ))}
@@ -173,11 +197,7 @@ export function Contact() {
               className="rounded-2xl border border-border bg-surface p-6 shadow-[var(--shadow)] sm:p-8"
               noValidate
             >
-              <Field
-                label="Your name"
-                error={errors.name}
-                id="contact-name"
-              >
+              <Field label="Your name" error={errors.name} id="contact-name">
                 <input
                   id="contact-name"
                   name="name"
@@ -186,7 +206,9 @@ export function Contact() {
                   onChange={(e) => updateField("name", e.target.value)}
                   className={inputClass(Boolean(errors.name))}
                   aria-invalid={Boolean(errors.name)}
-                  aria-describedby={errors.name ? "contact-name-error" : undefined}
+                  aria-describedby={
+                    errors.name ? "contact-name-error" : undefined
+                  }
                   placeholder="Alex Rivera"
                 />
               </Field>
@@ -241,10 +263,12 @@ export function Contact() {
                   onClick={polishMessage}
                   disabled={polishing || isPending}
                 >
+                  <SparklesIcon />
                   {polishing ? "Polishing…" : "Improve with AI"}
                 </Button>
                 <Button type="submit" disabled={isPending || polishing}>
                   {isPending ? "Sending…" : "Send message"}
+                  <SendIcon />
                 </Button>
               </div>
 

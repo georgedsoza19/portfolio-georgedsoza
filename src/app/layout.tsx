@@ -36,6 +36,10 @@ export const metadata: Metadata = {
     title: `${site.name} | Senior Frontend Developer`,
     description: site.heroTagline,
   },
+  icons: {
+    icon: [{ url: "/logo.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/logo.svg" }],
+  },
 };
 
 export default function RootLayout({
