@@ -1,29 +1,77 @@
 # Deployment
 
-## Recommended: Vercel
+## Current state
 
-1. Import the GitHub repository into Vercel.
-2. Framework preset: **Next.js**.
-3. Add env vars from `.env.example` (`OPENAI_API_KEY`, optional Resend keys, `NEXT_PUBLIC_SITE_URL`).
-4. Deploy.
+| Item | Status |
+|------|--------|
+| GitHub Actions | [`.github/workflows/ci.yml`](../.github/workflows/ci.yml), [`deploy.yml`](../.github/workflows/deploy.yml) |
+| Deploy target | **Vercel** (Node host for `/api/*`) |
+| Production URL | `https://portfolio-georgedsoza.vercel.app` |
+| Legacy site | `legacy-3d-portfolio` branch; old Pages site may still be on `gh-pages` |
+| Auto-deploy trigger | Push to `main` (includes merged PRs) |
 
 AI Route Handlers require a Node-capable host. Pure static GitHub Pages **cannot** run `/api/chat` or `/api/contact`.
 
-## Legacy GitHub Pages site
+**Full CLI + secrets walkthrough:** [vercel-setup.md](./vercel-setup.md)
 
-The old Vite + Three.js portfolio remains on:
+## GitHub Actions
 
-```bash
-git checkout legacy-3d-portfolio
-```
+### CI — `.github/workflows/ci.yml`
 
-That branch can still be published with `gh-pages` if needed. The App Router rebuild on `main` should use Vercel (or similar).
+Runs on every **pull request into `main`**:
+
+1. `npm ci`
+2. `npm run lint`
+3. `npm run typecheck`
+4. `npm run build`
+
+### Deploy — `.github/workflows/deploy.yml`
+
+Runs on:
+
+- **push to `main`** (PR merge creates this push)
+- **workflow_dispatch** (manual run from the Actions tab)
+
+Flow: install → `vercel pull` → `vercel build --prod` → `vercel deploy --prebuilt --prod`.
+
+Requires repository secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`.
+
+## Quick setup (summary)
+
+1. `npm install` then `npm run vercel:login` and `npm run vercel:link`
+2. Create a personal token at [vercel.com/account/tokens](https://vercel.com/account/tokens)
+3. Set GitHub Actions secrets (`VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`)
+4. Set Vercel env vars (`NEXT_PUBLIC_SITE_URL`, optional `OPENAI_API_KEY`, Resend keys)
+5. Use **either** Actions deploy **or** Vercel Git auto-deploy — not both
+6. Disable Deployment Protection on Production for a public portfolio
+
+Details and troubleshooting: [vercel-setup.md](./vercel-setup.md).
+
+## Branch rules
+
+Ruleset **Protect main** (active):
+
+- Require a pull request before merging
+- Require status check: **Lint, typecheck, and build**
+- Block force-pushes to `main`
+
+Manage under **Settings → Rules → Rulesets**.
+
+## Legacy GitHub Pages
+
+The previous static site may still be live at:
+
+`https://georgedsoza19.github.io/portfolio-georgedsoza/`
+
+Source: `gh-pages` branch (legacy). The 3D Vite app source is on `legacy-3d-portfolio`. Prefer the Vercel production URL going forward; update the GitHub repo homepage and unpublish Pages when ready.
 
 ## Production checklist
 
-- [ ] `NEXT_PUBLIC_SITE_URL` points at the live domain
-- [ ] Resume PDF opens at `/GeorgeDsoza_Resume.pdf`
+- [ ] Follow [vercel-setup.md](./vercel-setup.md) through verification
+- [ ] GitHub Actions secrets for Vercel are set
+- [ ] Vercel env vars include `NEXT_PUBLIC_SITE_URL` and optional AI/contact keys
+- [ ] Merge to `main` triggers **Deploy** workflow (green)
+- [ ] Resume opens at `/GeorgeDsoza_Resume.pdf`
 - [ ] Dark/light toggle works
-- [ ] Chat returns answers when `OPENAI_API_KEY` is set
-- [ ] Contact form either sends via Resend or opens mailto
-- [ ] LinkedIn / GitHub / email links work
+- [ ] Chat / polish work when `OPENAI_API_KEY` is set on Vercel
+- [ ] Contact form sends via Resend or opens mailto

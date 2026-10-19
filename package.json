@@ -8,7 +8,13 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "vercel": "vercel",
+    "vercel:login": "vercel login",
+    "vercel:link": "vercel link",
+    "vercel:pull": "vercel env pull .env.local",
+    "vercel:deploy": "vercel deploy",
+    "vercel:prod": "vercel deploy --prod"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -31,6 +37,7 @@
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vercel": "^64.5.0"
   }
 }
