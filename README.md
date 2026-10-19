@@ -1,80 +1,90 @@
-<div align="center">
-  <h3 align="center">A 3D-Portfolio of George Dsoza</h3>
-</div>
+# George Dsoza — Portfolio
 
-## <a name="introduction">🤖 Introduction</a>
+Modern **2D** personal portfolio built with the latest **Next.js App Router**, **React 19**, **TypeScript**, **Tailwind CSS v4**, and **Framer Motion**.
 
-This **3D portfolio** is built using **React, Tailwind CSS, and Three.js**, offering an **interactive and visually engaging experience**. It showcases **experiences, projects, skills, and contact details** with smooth animations, immersive 3D elements, and a modern UI. **Three.js** brings life to the visuals, while **Tailwind CSS** ensures a responsive and sleek design..
+Design system: **Ink & Teal** with **dark / light mode**. AI features: grounded portfolio chatbot + contact message polish.
 
-## <a name="tech-stack">⚙️ Tech Stack</a>
+> The previous Vite + Three.js site is preserved on the `legacy-3d-portfolio` branch.
 
-- React.js
-- Three.js
-- React Three Fiber
-- React Three Drei
-- Email JS
-- Vite
-- Tailwind CSS
+## Stack
 
-## <a name="features">🔋 Features</a>
+| Area | Choice |
+|------|--------|
+| Framework | Next.js 16 (App Router, Turbopack) |
+| UI | React 19, TypeScript, Tailwind CSS v4 |
+| Motion | Framer Motion |
+| Theming | `next-themes` (class strategy) |
+| AI | OpenAI-compatible API via Route Handlers |
+| Contact delivery | Optional Resend, otherwise `mailto:` fallback |
+| Content | Typed `src/content/site.ts` + `knowledge.md` |
 
-👉 **Customizable 3D Hero Section**: Includes a 3D desktop model easily customizable to suit specific needs.
-
-👉 **Interactive Experience and Work Sections**: Utilizes animations powered by framer motion for engaging user experience.
-
-👉 **3D Skills Section**: Showcases skills using 3D geometries through three.js and React Three fiber
-
-👉 **Animated Projects and Testimonials**: Features animated sections using framer motion for projects and client testimonials.
-
-👉 **Contact Section with 3D Earth Model**:Integrates a 3D earth model with email functionality powered by emailjs.
-
-👉 **3D Stars**: Generate stars progressively at random positions using Three.js for background display.
-
-👉 **Responsive Design**: Ensures optimal display and functionality across all devices.
-
-and many more, including code architecture and reusability
-
-## <a name="quick-start">🤸 Quick Start</a>
-
-Follow these steps to set up the project locally on your machine.
-
-**Prerequisites**
-
-Make sure you have the following installed on your machine:
-
-- [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/en)
-- [npm](https://www.npmjs.com/) (Node Package Manager)
-
-**Cloning the Repository**
-
-```bash
-git clone https://github.com/georgedsoza19/portfolio-georgedsoza.git
-cd portfolio-georgedsoza
-```
-
-**Installation**
-
-Install the project dependencies using npm:
+## Quick start
 
 ```bash
 npm install
+cp .env.example .env.local
+npm run dev
 ```
 
-**Set Up Environment Variables**
+Open [http://localhost:3000](http://localhost:3000).
 
-Create a new file named `.env` in the root of your project and add the following content:
+### Environment
 
-```env
-VITE_APP_EMAILJS_USERID=your_emailjs_user_id
-VITE_APP_EMAILJS_TEMPLATEID=your_emailjs_template_id
-VITE_APP_EMAILJS_RECEIVERID=your_emailjs_receiver_id
-```
+See [`.env.example`](.env.example):
 
-Replace the placeholder values with your actual EmailJS credentials. You can obtain these credentials by signing up on the [EmailJS website](https://www.emailjs.com/).
+- `OPENAI_API_KEY` — enables chat + “Improve with AI”
+- `RESEND_API_KEY` + `CONTACT_FROM_EMAIL` — enables server email send
+- `NEXT_PUBLIC_SITE_URL` — canonical URL for metadata
 
-**Running the Project**
+Without AI keys, the rest of the site still works; AI controls show a clear unavailable message.
+
+## Scripts
 
 ```bash
-npm run dev
+npm run dev      # local development (Turbopack)
+npm run build    # production build
+npm run start    # serve production build
+npm run lint     # ESLint
+```
+
+## Project structure
+
+```text
+src/
+  app/                 # routes, layouts, API handlers
+  components/
+    ai/                # chat widget
+    layout/            # header, footer, theme
+    sections/          # page sections
+    ui/                # primitives
+  content/             # site copy + chatbot knowledge
+  hooks/
+  lib/                 # utils, AI client, rate limit
+  types/
+docs/                  # architecture & contributor docs
+public/                # resume PDF, static assets
+```
+
+## Documentation
+
+- [Architecture](docs/architecture.md)
+- [Content & resume](docs/content.md)
+- [AI features](docs/ai-features.md)
+- [Theming](docs/theming.md)
+- [Deployment](docs/deployment.md)
+
+## Content edits
+
+1. Update [`src/content/site.ts`](src/content/site.ts) for UI copy.
+2. Mirror facts in [`src/content/knowledge.md`](src/content/knowledge.md) for the chatbot.
+3. Replace [`public/GeorgeDsoza_Resume.pdf`](public/GeorgeDsoza_Resume.pdf) when the PDF changes.
+
+## Deploy
+
+Prefer **Vercel** so `/api/*` AI and contact routes run on Node. See [docs/deployment.md](docs/deployment.md).
+
+## Legacy 3D site
+
+```bash
+git checkout legacy-3d-portfolio
 ```

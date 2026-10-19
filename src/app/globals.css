@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/* Ink & Teal — dark (default) / light */
+:root {
+  --bg: #f3f5f8;
+  --surface: #ffffff;
+  --border: #d5dbe6;
+  --text: #0b1220;
+  --muted: #5b6575;
+  --accent: #0d9488;
+  --accent-ink: #042f2e;
+  --accent-soft: color-mix(in oklab, var(--accent) 14%, transparent);
+  --grid: color-mix(in oklab, var(--accent) 18%, transparent);
+  --shadow: 0 20px 50px color-mix(in oklab, #0b1220 12%, transparent);
+}
+
+.dark {
+  --bg: #0b1220;
+  --surface: #121a2b;
+  --border: #243044;
+  --text: #f4f1ea;
+  --muted: #9aa4b2;
+  --accent: #2dd4bf;
+  --accent-ink: #042f2e;
+  --accent-soft: color-mix(in oklab, var(--accent) 16%, transparent);
+  --grid: color-mix(in oklab, var(--accent) 22%, transparent);
+  --shadow: 0 24px 60px color-mix(in oklab, #000 45%, transparent);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-source-sans);
+  --font-display: var(--font-space-grotesk);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 70% 40%, black, transparent);
+}
+
+.focus-ring {
+  @apply outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+}
