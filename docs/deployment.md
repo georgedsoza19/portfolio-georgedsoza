@@ -4,12 +4,15 @@
 
 | Item | Status |
 |------|--------|
-| GitHub Actions (local/repo) | Configured — see `.github/workflows/` |
+| GitHub Actions | [`.github/workflows/ci.yml`](../.github/workflows/ci.yml), [`deploy.yml`](../.github/workflows/deploy.yml) |
 | Deploy target | **Vercel** (Node host for `/api/*`) |
-| Legacy site | `legacy-3d-portfolio` branch; old Pages site still on `gh-pages` |
+| Production URL | `https://portfolio-georgedsoza.vercel.app` |
+| Legacy site | `legacy-3d-portfolio` branch; old Pages site may still be on `gh-pages` |
 | Auto-deploy trigger | Push to `main` (includes merged PRs) |
 
 AI Route Handlers require a Node-capable host. Pure static GitHub Pages **cannot** run `/api/chat` or `/api/contact`.
+
+**Full CLI + secrets walkthrough:** [vercel-setup.md](./vercel-setup.md)
 
 ## GitHub Actions
 
@@ -31,42 +34,28 @@ Runs on:
 
 Flow: install → `vercel pull` → `vercel build --prod` → `vercel deploy --prebuilt --prod`.
 
-## One-time Vercel + secrets setup
+Requires repository secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`.
 
-1. Create a Vercel account and install the CLI locally:
+## Quick setup (summary)
 
-   ```bash
-   npm i -g vercel
-   vercel login
-   cd /path/to/portfolio-georgedsoza
-   vercel link
-   ```
+1. `npm install` then `npm run vercel:login` and `npm run vercel:link`
+2. Create a personal token at [vercel.com/account/tokens](https://vercel.com/account/tokens)
+3. Set GitHub Actions secrets (`VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`)
+4. Set Vercel env vars (`NEXT_PUBLIC_SITE_URL`, optional `OPENAI_API_KEY`, Resend keys)
+5. Use **either** Actions deploy **or** Vercel Git auto-deploy — not both
+6. Disable Deployment Protection on Production for a public portfolio
 
-2. Copy IDs from `.vercel/project.json` (`orgId`, `projectId`).
+Details and troubleshooting: [vercel-setup.md](./vercel-setup.md).
 
-3. Create a Vercel token: [vercel.com/account/tokens](https://vercel.com/account/tokens).
+## Branch rules
 
-4. In the GitHub repo → **Settings → Secrets and variables → Actions**, add:
-
-   | Secret | Value |
-   |--------|--------|
-   | `VERCEL_TOKEN` | Vercel personal/access token |
-   | `VERCEL_ORG_ID` | `orgId` from `.vercel/project.json` |
-   | `VERCEL_PROJECT_ID` | `projectId` from `.vercel/project.json` |
-
-5. In the Vercel project → **Settings → Environment Variables**, add production values from `.env.example` (`OPENAI_API_KEY`, `NEXT_PUBLIC_SITE_URL`, optional Resend keys).
-
-6. Prefer **either** GitHub Actions deploy **or** Vercel’s built-in Git integration — not both — to avoid double production deploys. With these workflows, disable Vercel’s automatic Git deploys (Project → Settings → Git → disconnect / ignore).
-
-## Branch rules (recommended)
-
-On `main`:
+Ruleset **Protect main** (active):
 
 - Require a pull request before merging
-- Require the CI status check: **CI / Lint, typecheck, and build**
-- Do not allow force pushes to `main`
+- Require status check: **Lint, typecheck, and build**
+- Block force-pushes to `main`
 
-These can be set under **Settings → Rules → Rulesets** (or Branch protection). After the first CI run on a PR, the check name appears in the required-checks list.
+Manage under **Settings → Rules → Rulesets**.
 
 ## Legacy GitHub Pages
 
@@ -74,10 +63,11 @@ The previous static site may still be live at:
 
 `https://georgedsoza19.github.io/portfolio-georgedsoza/`
 
-Source: `gh-pages` branch (legacy). The 3D Vite app source is on `legacy-3d-portfolio`. Once Vercel is the production URL, update the GitHub repo homepage and consider unpublishing Pages if you no longer need it.
+Source: `gh-pages` branch (legacy). The 3D Vite app source is on `legacy-3d-portfolio`. Prefer the Vercel production URL going forward; update the GitHub repo homepage and unpublish Pages when ready.
 
 ## Production checklist
 
+- [ ] Follow [vercel-setup.md](./vercel-setup.md) through verification
 - [ ] GitHub Actions secrets for Vercel are set
 - [ ] Vercel env vars include `NEXT_PUBLIC_SITE_URL` and optional AI/contact keys
 - [ ] Merge to `main` triggers **Deploy** workflow (green)

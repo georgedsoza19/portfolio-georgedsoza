@@ -38,13 +38,32 @@ See [`.env.example`](.env.example):
 
 Without AI keys, the rest of the site still works; AI controls show a clear unavailable message.
 
+### Vercel CLI (local)
+
+The `vercel` package is a **devDependency**. After `npm install`:
+
+```bash
+npm run vercel:login
+npm run vercel:link
+npm run vercel:pull    # optional: sync env into .env.local
+npm run vercel:prod    # optional: one-off production deploy
+```
+
+End-to-end account, secrets, and CI/CD setup: [docs/vercel-setup.md](docs/vercel-setup.md).
+
 ## Scripts
 
 ```bash
-npm run dev      # local development (Turbopack)
-npm run build    # production build
-npm run start    # serve production build
-npm run lint     # ESLint
+npm run dev            # local development (Turbopack)
+npm run build          # production build
+npm run start          # serve production build
+npm run lint           # ESLint
+npm run typecheck      # TypeScript
+npm run vercel:login   # Vercel device login
+npm run vercel:link    # link this repo to a Vercel project
+npm run vercel:pull    # pull env vars into .env.local
+npm run vercel:deploy  # preview deploy
+npm run vercel:prod    # production deploy
 ```
 
 ## Project structure
@@ -72,6 +91,7 @@ public/                # resume PDF, static assets
 - [AI features](docs/ai-features.md)
 - [Theming](docs/theming.md)
 - [Deployment](docs/deployment.md)
+- [Vercel end-to-end setup](docs/vercel-setup.md)
 
 ## Content edits
 
@@ -84,7 +104,9 @@ public/                # resume PDF, static assets
 - **CI** runs on every PR to `main` (lint, typecheck, build).
 - **Deploy** runs when a PR is merged into `main` (push to `main`) and publishes to **Vercel**.
 
-Add repository secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` before the first production deploy. Full steps: [docs/deployment.md](docs/deployment.md).
+Production: `https://portfolio-georgedsoza.vercel.app`
+
+Add repository secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` before the first Actions production deploy. Full guide: [docs/vercel-setup.md](docs/vercel-setup.md).
 
 ## Legacy 3D site
 
