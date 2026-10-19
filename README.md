@@ -79,9 +79,12 @@ public/                # resume PDF, static assets
 2. Mirror facts in [`src/content/knowledge.md`](src/content/knowledge.md) for the chatbot.
 3. Replace [`public/GeorgeDsoza_Resume.pdf`](public/GeorgeDsoza_Resume.pdf) when the PDF changes.
 
-## Deploy
+## Deploy (GitHub Actions)
 
-Prefer **Vercel** so `/api/*` AI and contact routes run on Node. See [docs/deployment.md](docs/deployment.md).
+- **CI** runs on every PR to `main` (lint, typecheck, build).
+- **Deploy** runs when a PR is merged into `main` (push to `main`) and publishes to **Vercel**.
+
+Add repository secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` before the first production deploy. Full steps: [docs/deployment.md](docs/deployment.md).
 
 ## Legacy 3D site
 
