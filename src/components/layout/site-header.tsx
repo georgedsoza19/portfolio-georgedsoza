@@ -50,7 +50,7 @@ export function SiteHeader() {
           onClick={() => setOpen(false)}
           aria-label={`${site.name} home`}
         >
-          <Logo size={34} priority />
+          <Logo size={42} priority />
           <span className="hidden font-display text-lg font-bold tracking-tight sm:inline">
             {site.name}
           </span>

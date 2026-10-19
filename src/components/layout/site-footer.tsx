@@ -15,7 +15,7 @@ export function SiteFooter() {
     <footer className="border-t border-border py-10">
       <Container className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-start gap-3">
-          <Logo size={32} />
+          <Logo size={40} />
           <div>
             <p className="font-display text-lg font-semibold text-text">
               {site.name}

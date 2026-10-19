@@ -11,7 +11,7 @@ type LogoProps = {
  * Mockup brand mark — cream monogram + teal accent.
  * Inverts to dark on light theme so it stays visible.
  */
-export function Logo({ className, size = 36, priority = false }: LogoProps) {
+export function Logo({ className, size = 44, priority = false }: LogoProps) {
   return (
     <Image
       src="/logo.png"
