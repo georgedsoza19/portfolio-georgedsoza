@@ -2,7 +2,11 @@
 
 import { useEffect, useRef, useState, useTransition } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import {
+  ChatBubbleIcon,
+  CloseIcon,
+  SendIcon,
+} from "@/components/ui/icons";
 import { cn } from "@/lib/utils";
 
 type ChatMessage = {
@@ -86,7 +90,7 @@ export function ChatWidget() {
   }
 
   return (
-    <div className="fixed right-4 bottom-4 z-50 sm:right-6 sm:bottom-6">
+    <div className="fixed right-4 bottom-4 z-50 flex flex-col items-end sm:right-6 sm:bottom-6">
       <AnimatePresence>
         {open ? (
           <motion.div
@@ -108,10 +112,11 @@ export function ChatWidget() {
               </div>
               <button
                 type="button"
-                className="focus-ring rounded-lg px-2 py-1 text-sm text-muted hover:text-text"
+                className="focus-ring inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted transition hover:bg-accent-soft hover:text-text"
                 onClick={() => setOpen(false)}
+                aria-label="Close chat"
               >
-                Close
+                <CloseIcon />
               </button>
             </div>
 
@@ -139,7 +144,7 @@ export function ChatWidget() {
             </div>
 
             <form
-              className="flex gap-2 border-t border-border p-3"
+              className="flex items-center gap-2 border-t border-border p-3"
               onSubmit={(event) => {
                 event.preventDefault();
                 send();
@@ -152,13 +157,18 @@ export function ChatWidget() {
                 id="chat-input"
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
-                className="focus-ring flex-1 rounded-xl border border-border bg-bg px-3 py-2 text-sm text-text placeholder:text-muted"
-                placeholder="What stack does George use?"
+                className="focus-ring flex-1 rounded-xl border border-border bg-bg px-3 py-2.5 text-sm text-text placeholder:text-muted"
+                placeholder="Ask something…"
                 disabled={isPending}
               />
-              <Button type="submit" disabled={isPending || !input.trim()}>
-                Send
-              </Button>
+              <button
+                type="submit"
+                disabled={isPending || !input.trim()}
+                className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-accent-ink transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+                aria-label="Send message"
+              >
+                <SendIcon size={20} className="translate-x-px" />
+              </button>
             </form>
           </motion.div>
         ) : null}
@@ -166,26 +176,13 @@ export function ChatWidget() {
 
       <button
         type="button"
-        className="focus-ring flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-ink shadow-[var(--shadow)] transition hover:brightness-110"
+        className="focus-ring flex h-14 w-14 items-center justify-center rounded-full bg-accent p-0 text-accent-ink shadow-[var(--shadow)] transition hover:brightness-110"
         aria-expanded={open}
         aria-label={open ? "Close chat" : "Open chat about my work"}
         onClick={() => setOpen((value) => !value)}
       >
-        <ChatIcon />
+        {open ? <CloseIcon size={28} /> : <ChatBubbleIcon size={28} />}
       </button>
     </div>
-  );
-}
-
-function ChatIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M5 6.5A3.5 3.5 0 0 1 8.5 3h7A3.5 3.5 0 0 1 19 6.5v5A3.5 3.5 0 0 1 15.5 15H11l-4 3.5V15H8.5A3.5 3.5 0 0 1 5 11.5v-5Z"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }

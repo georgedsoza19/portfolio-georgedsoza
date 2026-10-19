@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="George Dsoza">
+  <title>George Dsoza</title>
+  <!-- Outer rounded frame / stylized G matching mockup -->
+  <path
+    d="M44.5 18.5c-2.8-4.2-7.8-7-13.5-7C21.4 11.5 14 19 14 28.5S21.4 45.5 31 45.5c5.2 0 9.8-2.3 12.8-5.9"
+    stroke="currentColor"
+    stroke-width="5.2"
+    stroke-linecap="round"
+  />
+  <path
+    d="M44.5 18.5V28c0 2.4-1.9 4.3-4.3 4.3H28.2"
+    stroke="currentColor"
+    stroke-width="5.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <!-- Inner geometric L connected to the G bowl -->
+  <path
+    d="M26.5 22.5v14.5c0 1.4 1.1 2.5 2.5 2.5H38"
+    stroke="currentColor"
+    stroke-width="5.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <!-- Teal accent dot -->
+  <circle cx="48.5" cy="46.5" r="4.2" fill="#2DD4BF" />
+</svg>

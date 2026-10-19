@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { site } from "@/content/site";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { ArrowRightIcon, DownloadIcon } from "@/components/ui/icons";
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
@@ -53,9 +54,13 @@ export function Hero() {
             {site.location} · {site.availability}
           </motion.p>
           <motion.div variants={item} className="mt-10 flex flex-wrap gap-3">
-            <Button href="#contact">Get in touch</Button>
+            <Button href="#contact">
+              Get in touch
+              <ArrowRightIcon />
+            </Button>
             <Button href={site.resumePath} variant="secondary" download>
               Download resume
+              <DownloadIcon />
             </Button>
           </motion.div>
         </motion.div>

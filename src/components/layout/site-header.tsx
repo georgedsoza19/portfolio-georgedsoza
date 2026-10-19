@@ -7,6 +7,8 @@ import { useActiveSection } from "@/hooks/use-active-section";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { DownloadIcon } from "@/components/ui/icons";
+import { Logo } from "@/components/ui/logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 const sectionIds = site.nav.map((item) => item.href.replace("#", ""));
@@ -44,10 +46,14 @@ export function SiteHeader() {
       <Container className="flex h-16 items-center justify-between gap-4">
         <Link
           href="/"
-          className="focus-ring font-display text-lg font-bold tracking-tight text-text"
+          className="focus-ring flex items-center gap-2.5 text-text"
           onClick={() => setOpen(false)}
+          aria-label={`${site.name} home`}
         >
-          {site.name}
+          <Logo size={42} priority />
+          <span className="hidden font-display text-lg font-bold tracking-tight sm:inline">
+            {site.name}
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
@@ -74,6 +80,7 @@ export function SiteHeader() {
           <ThemeToggle />
           <Button href={site.resumePath} variant="secondary" download>
             Resume
+            <DownloadIcon />
           </Button>
         </div>
 
@@ -120,6 +127,7 @@ export function SiteHeader() {
               download
             >
               Download resume
+              <DownloadIcon />
             </Button>
           </Container>
         </div>
