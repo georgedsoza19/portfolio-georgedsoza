@@ -37,8 +37,8 @@ export const metadata: Metadata = {
     description: site.heroTagline,
   },
   icons: {
-    icon: [{ url: "/logo.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/logo.svg" }],
+    icon: [{ url: "/icon-512.png", type: "image/png", sizes: "512x512" }],
+    apple: [{ url: "/apple-touch-icon.png" }],
   },
 };
 

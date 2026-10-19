@@ -7,7 +7,8 @@ import { useActiveSection } from "@/hooks/use-active-section";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { DownloadIcon, LogoMark } from "@/components/ui/icons";
+import { DownloadIcon } from "@/components/ui/icons";
+import { Logo } from "@/components/ui/logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 const sectionIds = site.nav.map((item) => item.href.replace("#", ""));
@@ -49,7 +50,7 @@ export function SiteHeader() {
           onClick={() => setOpen(false)}
           aria-label={`${site.name} home`}
         >
-          <LogoMark size={34} />
+          <Logo size={34} priority />
           <span className="hidden font-display text-lg font-bold tracking-tight sm:inline">
             {site.name}
           </span>

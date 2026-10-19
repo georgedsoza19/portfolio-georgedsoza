@@ -1,11 +1,7 @@
 import { site } from "@/content/site";
 import { Container } from "@/components/ui/container";
-import {
-  GitHubIcon,
-  LinkedInIcon,
-  LogoMark,
-  MailIcon,
-} from "@/components/ui/icons";
+import { GitHubIcon, LinkedInIcon, MailIcon } from "@/components/ui/icons";
+import { Logo } from "@/components/ui/logo";
 
 function footerSocialIcon(label: string) {
   const key = label.toLowerCase();
@@ -19,7 +15,7 @@ export function SiteFooter() {
     <footer className="border-t border-border py-10">
       <Container className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-start gap-3">
-          <LogoMark size={32} />
+          <Logo size={32} />
           <div>
             <p className="font-display text-lg font-semibold text-text">
               {site.name}

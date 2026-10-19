@@ -16,46 +16,6 @@ function baseProps(size: number, className?: string) {
   };
 }
 
-export function LogoMark({ className, size = 36 }: IconProps) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 40 40"
-      fill="none"
-      aria-hidden
-      className={cn("text-text", className)}
-    >
-      <path
-        d="M12 6.5h12.5a8 8 0 0 1 8 8V22"
-        stroke="currentColor"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M32.5 26v1.5a8 8 0 0 1-8 8H16a8 8 0 0 1-8-8V14.5A8 8 0 0 1 16 6.5"
-        stroke="currentColor"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M25.5 16.2c-.9-1.4-2.5-2.3-4.4-2.3-2.9 0-5.1 2.2-5.1 5.3s2.2 5.3 5.1 5.3c1.7 0 3.2-.7 4.1-1.9"
-        stroke="currentColor"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M21.2 19.2h5.4v3.4"
-        stroke="currentColor"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="31.2" cy="31.2" r="2.4" className="fill-accent" />
-    </svg>
-  );
-}
-
 export function ArrowRightIcon({ className, size = 18 }: IconProps) {
   return (
     <svg {...baseProps(size, className)}>
