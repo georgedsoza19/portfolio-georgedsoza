@@ -9,7 +9,7 @@ type LogoProps = {
 
 /**
  * Mockup brand mark — cream monogram + teal accent.
- * Inverts to dark on light theme so it stays visible.
+ * Forced dark in light mode via `.logo-mark` in globals.css.
  */
 export function Logo({ className, size = 44, priority = false }: LogoProps) {
   return (
@@ -19,10 +19,7 @@ export function Logo({ className, size = 44, priority = false }: LogoProps) {
       width={size}
       height={size}
       priority={priority}
-      className={cn(
-        "shrink-0 object-contain [filter:brightness(0)] dark:[filter:none]",
-        className,
-      )}
+      className={cn("logo-mark shrink-0 object-contain", className)}
     />
   );
 }

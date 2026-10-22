@@ -6,7 +6,9 @@ import {
   ChatBubbleIcon,
   CloseIcon,
   SendIcon,
+  WhatsAppIcon,
 } from "@/components/ui/icons";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
 
 type ChatMessage = {
@@ -143,8 +145,20 @@ export function ChatWidget() {
               {error ? <p className="text-xs text-red-400">{error}</p> : null}
             </div>
 
+            <div className="border-t border-border px-3 pt-3">
+              <a
+                href={getWhatsAppUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="focus-ring flex w-full items-center justify-center gap-2 rounded-xl border border-[#25D366]/40 bg-[#25D366]/10 px-3 py-2.5 text-sm font-semibold text-[#128C7E] transition hover:bg-[#25D366]/18 dark:text-[#25D366]"
+              >
+                <WhatsAppIcon size={18} />
+                Connect via WhatsApp
+              </a>
+            </div>
+
             <form
-              className="flex items-center gap-2 border-t border-border p-3"
+              className="flex items-center gap-2 p-3"
               onSubmit={(event) => {
                 event.preventDefault();
                 send();

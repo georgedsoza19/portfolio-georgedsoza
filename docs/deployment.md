@@ -74,4 +74,4 @@ Source: `gh-pages` branch (legacy). The 3D Vite app source is on `legacy-3d-port
 - [ ] Resume opens at `/GeorgeDsoza_Resume.pdf`
 - [ ] Dark/light toggle works
 - [ ] Chat / polish work when `OPENAI_API_KEY` is set on Vercel
-- [ ] Contact form sends via Resend or opens mailto
+- [ ] Contact form sends via Resend or FormSubmit (activate FormSubmit once if used)

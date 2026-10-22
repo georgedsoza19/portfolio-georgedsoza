@@ -5,7 +5,7 @@
 - **Server Components by default** — static marketing sections stay on the server; interactivity is isolated in client islands.
 - **Typed content layer** — UI reads from `src/content/site.ts`; AI reads from `src/content/knowledge.md`.
 - **Route Handlers for secrets** — API keys never ship to the browser.
-- **Progressive enhancement** — missing AI/email config degrades gracefully (messages + mailto).
+- **Progressive enhancement** — missing AI/email config degrades gracefully (chat messages; contact uses FormSubmit without Resend).
 
 ## Request flow
 
@@ -15,7 +15,7 @@ Browser
   ├─ ChatWidget ──POST──► /api/chat ──► OpenAI + knowledge.md
   └─ Contact form
         ├─ Improve with AI ──► /api/contact/polish
-        └─ Send ──► /api/contact ──► Resend | mailto fallback
+        └─ Send ──► /api/contact ──► Resend | FormSubmit (browser)
 ```
 
 ## Folder roles

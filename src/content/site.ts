@@ -10,6 +10,11 @@ export const site: SiteContent = {
   location: "Pune, Maharashtra",
   email: "georgedsoza19@gmail.com",
   phone: "+91 9673205706",
+  whatsapp: {
+    phone: "919673205706",
+    prefillMessage:
+      "Hi George, I found your portfolio and would like to connect about a frontend opportunity.",
+  },
   summary:
     "Results-driven frontend software engineer with 4+ years building scalable web and mobile applications across the React and MERN ecosystems. Specialized in React.js, React Native, Next.js, and TypeScript, with strong command of responsive UI, REST APIs, SSR, and performance optimization.",
   heroTagline:

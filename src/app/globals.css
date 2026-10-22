@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Match next-themes class strategy (not prefers-color-scheme alone) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Ink & Teal — dark (default) / light */
 :root {
   --bg: #f3f5f8;
@@ -79,4 +82,13 @@ body {
 
 .focus-ring {
   @apply outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+}
+
+/* Cream logo → near-black in light mode; original colors in .dark */
+.logo-mark {
+  filter: brightness(0);
+}
+
+.dark .logo-mark {
+  filter: none;
 }

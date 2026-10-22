@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { site } from "@/content/site";
+import {
+  getContactInbox,
+  hasServerEmailProvider,
+  sendContactEmail,
+} from "@/lib/contact-email";
 import { rateLimit } from "@/lib/rate-limit";
 
 const bodySchema = z.object({
@@ -37,50 +41,20 @@ export async function POST(request: Request) {
     );
   }
 
-  const { name, email, message } = parsed.data;
-  const resendKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL ?? site.email;
-  const from = process.env.CONTACT_FROM_EMAIL;
+  const payload = parsed.data;
 
-  if (resendKey && from) {
-    try {
-      const response = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${resendKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from,
-          to: [to],
-          reply_to: email,
-          subject: `Portfolio message from ${name}`,
-          text: `From: ${name} <${email}>\n\n${message}`,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Resend rejected the request");
-      }
-
-      return NextResponse.json({ ok: true });
-    } catch {
-      return NextResponse.json(
-        {
-          error:
-            "Email delivery failed. Please use the mailto fallback or try again.",
-        },
-        { status: 502 },
-      );
+  if (hasServerEmailProvider()) {
+    const result = await sendContactEmail(payload);
+    if (!result.ok) {
+      return NextResponse.json({ error: result.error }, { status: 502 });
     }
+    return NextResponse.json({ ok: true, delivery: "server" as const });
   }
 
-  const mailto = `mailto:${to}?subject=${encodeURIComponent(
-    `Portfolio message from ${name}`,
-  )}&body=${encodeURIComponent(`${message}\n\n— ${name} <${email}>`)}`;
-
+  // No Resend / Web3Forms — client delivers via FormSubmit (browser Origin required).
   return NextResponse.json({
     ok: true,
-    mailto,
+    delivery: "formsubmit" as const,
+    to: getContactInbox(),
   });
 }
