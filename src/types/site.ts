@@ -43,12 +43,19 @@ export type EducationItem = {
   year: string;
 };
 
+export type WhatsAppLink = {
+  /** Digits only, country code included (e.g. 919673205706) */
+  phone: string;
+  prefillMessage: string;
+};
+
 export type SiteContent = {
   name: string;
   title: string;
   location: string;
   email: string;
   phone: string;
+  whatsapp: WhatsAppLink;
   summary: string;
   heroTagline: string;
   availability: string;
