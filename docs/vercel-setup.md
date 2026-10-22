@@ -153,9 +153,10 @@ Or use the dashboard: **Project → Settings → Environment Variables**.
 | `OPENAI_API_KEY` | Chat widget + “Improve with AI” |
 | `OPENAI_MODEL` | Defaults to `gpt-4o-mini` if unset |
 | `OPENAI_BASE_URL` | Optional OpenAI-compatible gateway |
-| `RESEND_API_KEY` | Server-side contact email |
-| `CONTACT_FROM_EMAIL` | Verified Resend from address |
+| `RESEND_API_KEY` | Server-side contact email (recommended) |
+| `CONTACT_FROM_EMAIL` | Resend from address (defaults to onboarding@resend.dev) |
 | `CONTACT_TO_EMAIL` | Inbox (defaults to site email in code) |
+| `WEB3FORMS_ACCESS_KEY` | Alternative free server email (web3forms.com) |
 
 ```bash
 npx vercel env add OPENAI_API_KEY production
@@ -311,7 +312,7 @@ Manual run: GitHub → **Actions → Deploy → Run workflow**.
 | Site asks for Vercel login | Disable Deployment Protection on Production |
 | Two deploys per merge | Disconnect Vercel Git **or** disable Actions Deploy |
 | AI returns 503 | Set `OPENAI_API_KEY` on Vercel for Production (and Preview) |
-| Contact mailto only | Expected until `RESEND_API_KEY` + `CONTACT_FROM_EMAIL` are set |
+| Contact not emailing | Without `RESEND_API_KEY`, FormSubmit is used — activate once via the confirmation email to your inbox. Prefer Resend for production. |
 | Changes missing on `main` | Confirm PR merged; Deploy ran on the merge commit |
 
 ---

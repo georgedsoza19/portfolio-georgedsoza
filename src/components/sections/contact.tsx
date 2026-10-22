@@ -103,6 +103,7 @@ export function Contact() {
 
     startTransition(async () => {
       setStatus("idle");
+      const submittedName = form.name.trim();
       try {
         const response = await fetch("/api/contact", {
           method: "POST",
@@ -112,22 +113,26 @@ export function Contact() {
         const data = (await response.json()) as {
           ok?: boolean;
           error?: string;
-          mailto?: string;
+          delivery?: "server" | "formsubmit";
+          to?: string;
         };
 
         if (!response.ok) {
           throw new Error(data.error ?? "Could not send your message.");
         }
 
+        if (data.delivery === "formsubmit" && data.to) {
+          const delivered = await deliverViaFormSubmit(data.to, form);
+          setStatus("success");
+          setStatusMessage(delivered.message);
+          setForm(initialForm);
+          return;
+        }
+
         setStatus("success");
         setStatusMessage(
-          data.mailto
-            ? "Email delivery is not configured yet — your mail client will open as a fallback."
-            : `Thanks, ${form.name}. I will get back to you soon.`,
+          `Thanks, ${submittedName}. I will get back to you soon.`,
         );
-        if (data.mailto) {
-          window.location.href = data.mailto;
-        }
         setForm(initialForm);
       } catch (error) {
         setStatus("error");
@@ -324,4 +329,66 @@ function inputClass(hasError: boolean) {
     "focus-ring w-full rounded-xl border bg-bg px-4 py-3 text-sm text-text placeholder:text-muted",
     hasError ? "border-red-400" : "border-border",
   );
+}
+
+async function deliverViaFormSubmit(to: string, values: FormState) {
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), 20_000);
+
+  try {
+    const response = await fetch(
+      `https://formsubmit.co/ajax/${encodeURIComponent(to)}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        signal: controller.signal,
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          message: values.message,
+          _subject: `Portfolio message from ${values.name}`,
+          _replyto: values.email,
+          _template: "table",
+          _captcha: "false",
+        }),
+      },
+    );
+
+    const data = (await response.json()) as {
+      success?: string | boolean;
+      message?: string;
+    };
+
+    const failed = data.success === false || data.success === "false";
+    if (!response.ok || failed) {
+      throw new Error(
+        data.message ||
+          "Could not deliver your message. Please email me directly.",
+      );
+    }
+
+    const raw = (data.message ?? "").toLowerCase();
+    const needsActivation =
+      raw.includes("confirm") ||
+      raw.includes("activate") ||
+      raw.includes("activation");
+
+    return {
+      message: needsActivation
+        ? `Almost there — check ${to} for a one-time FormSubmit activation link, then submit again.`
+        : `Thanks, ${values.name.trim()}. I will get back to you soon.`,
+    };
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      throw new Error(
+        "Email delivery timed out. Please email me directly or try again.",
+      );
+    }
+    throw error;
+  } finally {
+    window.clearTimeout(timer);
+  }
 }

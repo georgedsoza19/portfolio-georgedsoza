@@ -15,7 +15,7 @@ Design system: **Ink & Teal** with **dark / light mode**. AI features: grounded 
 | Motion | Framer Motion |
 | Theming | `next-themes` (class strategy) |
 | AI | OpenAI-compatible API via Route Handlers |
-| Contact delivery | Optional Resend, otherwise `mailto:` fallback |
+| Contact delivery | Resend when configured; otherwise FormSubmit |
 | Content | Typed `src/content/site.ts` + `knowledge.md` |
 
 ## Quick start
@@ -33,7 +33,7 @@ Open [http://localhost:3000](http://localhost:3000).
 See [`.env.example`](.env.example):
 
 - `OPENAI_API_KEY` — enables chat + “Improve with AI”
-- `RESEND_API_KEY` + `CONTACT_FROM_EMAIL` — enables server email send
+- `RESEND_API_KEY` or `WEB3FORMS_ACCESS_KEY` — server email; without either, FormSubmit delivers from the browser (one-time activation email)
 - `NEXT_PUBLIC_SITE_URL` — canonical URL for metadata
 
 Without AI keys, the rest of the site still works; AI controls show a clear unavailable message.
